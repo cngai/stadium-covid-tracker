@@ -1,0 +1,8 @@
+SPORT,# GAMES (per season),LENGTH OF SEASON (days),AVG GAME INTERVAL (days),DURATION (mins),OUT or IN?
+Baseball,162,186,1.15,185,OUT
+Basketball,82,176,2.15,150,IN
+Football,16,115,7.19,192,BOTH
+Hockey,82,185,2.26,140,IN
+Horse Racing,,,,,
+Racing,36,280,7.78,180,OUT
+Soccer,34,218,6.41,120,OUT
