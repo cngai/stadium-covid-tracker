@@ -1,12 +1,14 @@
-import requests
 import random
+import sys
+from state_info import get_state_attr
 
 class Fan:
     def __init__(self, **kwargs):
-        self.fan_id = kwargs.get('id', -1)                                  # id
-        self.status = kwargs.get('status')                                  # either S, I, or R
-        self.days_since_infected = kwargs.get('days_since_infected', None)  # if not infected, None
-        self.asymptomatic = kwargs.get('asymptomatic')                      # either true or false
+        self.fan_id = kwargs.get('id', -1)                                      # id
+        self.status = kwargs.get('status')                                      # either S, I, or R
+        self.days_since_infected = kwargs.get('days_since_infected', None)      # if not infected, None
+        self.asymptomatic = kwargs.get('asymptomatic')                          # either true or false
+        self.days_since_recovered = kwargs.get('days_since_recovered', None)    # if not recovered, None
 
 class Sport:
     def __init__(self, **kwargs):
@@ -20,18 +22,7 @@ class Sport:
     def print_name(self):
         print(self.name)
 
-def initialize_fans(state_name):
-    print(state_name)
-
 def main():
-    response = requests.get('https://api.covidtracking.com/v1/states/current.json')
-    state_info_list = response.json()
-
-    ca_info = None
-    for state_info in state_info_list:
-        if state_info['state'] == 'CA':
-            ca_info = state_info
-
     # sport_list = []
 
     # baseball = Sport(id=0, name='baseball', num_events=162, event_time_interval=1.15, event_duration=185, env='O')
@@ -50,8 +41,7 @@ def main():
 
     # for x in sport_list:
     #     x.print_name()
-
-    initialize_fans('california')
+    print('hi')
 
 def random_sample():
     test_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -59,5 +49,14 @@ def random_sample():
 
     print(random_list)
 
+def get_state_obj(state_name):
+    state_obj = get_state_attr(state_name)
+    print('Name: ' + state_obj.name)
+    print('Abbreviation: ' + state_obj.abbrev)
+    print('Population: ' + str(state_obj.population))
+    print('Positives: ' + str(state_obj.positives))
+
+    return state_obj
+
 if __name__ == "__main__":
-    main()
+    get_state_obj(sys.argv[1])
